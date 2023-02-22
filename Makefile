@@ -8,7 +8,7 @@ Sources_thirdpaty_dir = thirdpaty
 
 all: $(Executable_dir)/main
 
-.PHONY: all run
+.PHONY: all run format
 
 #Executables
 $(Executable_dir)/main: $(Objects_app_dir)/main.o
@@ -24,3 +24,5 @@ run:
 clean:
 	rm -f $(Objects_app_dir)/*.o
 	rm -f $(Executable_dir)/main
+format:
+	clang-format --style=file -i $(Sources_app_dir)/*.c
