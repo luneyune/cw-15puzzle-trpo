@@ -17,20 +17,30 @@ For more check
 https://github.com/luneyune/cw-15puzzle-trpo/wiki/Tech-requirement "Управление".
 */
 
+static int actions_number = 0;
+
 bool game_action(enum Key key, struct GameField* gamefield)
 {
     switch (key) {
     case UP_k:
-        gamefield_swap(gamefield, UP);
+        if (gamefield_swap(gamefield, UP)) {
+            actions_number++;
+        }
         return true;
     case DOWN_k:
-        gamefield_swap(gamefield, DOWN);
+        if (gamefield_swap(gamefield, DOWN)) {
+            actions_number++;
+        }
         return true;
     case LEFT_k:
-        gamefield_swap(gamefield, LEFT);
+        if (gamefield_swap(gamefield, LEFT)) {
+            actions_number++;
+        }
         return true;
     case RIGHT_k:
-        gamefield_swap(gamefield, RIGHT);
+        if (gamefield_swap(gamefield, RIGHT)) {
+            actions_number++;
+        }
         return true;
     case QUIT_k:
         return false;
@@ -47,13 +57,20 @@ int main()
 
     struct GameField* gamefield = gamefield_init();
     gamefield_shuffle(gamefield);
+
     gamefield_print(gamefield);
+    printw("Actions: %d\n", actions_number);
+    printw("WASD - for swapping tiles\nPRESS Q for exit\n");
+    refresh();
 
     enum Key key = controls_user_input();
 
     while (game_action(key, gamefield)) {
         erase();
         gamefield_print(gamefield);
+        printw("Actions: %d\n", actions_number);
+        printw("WASD - for swapping tiles\nPRESS Q for exit\n");
+        refresh();
         key = controls_user_input();
     }
 
