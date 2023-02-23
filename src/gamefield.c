@@ -42,3 +42,40 @@ void gamefield_print(struct GameField* gamefield)
     }
     printf("-------------\n");
 }
+
+bool gamefield_swap(struct GameField* gamefield, struct Point direction)
+{
+    struct Point old_blank = gamefield->blank_tile;
+    struct Point new_blank;
+    new_blank.x = old_blank.x + direction.x;
+    new_blank.y = old_blank.y + direction.y;
+
+    if ((new_blank.x > 3 || new_blank.y > 3)) {
+        return false;
+    }
+    if ((new_blank.x < 0 || new_blank.y < 0)) {
+        return false;
+    }
+
+    gamefield->field[old_blank.y][old_blank.x]
+            = gamefield->field[new_blank.y][new_blank.x];
+    gamefield->field[new_blank.y][new_blank.x] = 0;
+
+    gamefield->blank_tile = new_blank;
+    return true;
+}
+
+void gamefield_shuffle(struct GameField* gamefield)
+{
+    struct Point directions[4] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+    /*
+    Directions here is similar to UP, DOWN, LEFT, RIGHT from main.c
+    */
+
+    int swaps = 1000;
+
+    for (int i = 0; i < swaps; i++) {
+        int direction_idx = rand() % 4;
+        gamefield_swap(gamefield, directions[direction_idx]);
+    }
+}
