@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include <controls.h>
 #include <gamefield.h>
 
 // Swapping directions
@@ -16,21 +17,46 @@ For more check
 https://github.com/luneyune/cw-15puzzle-trpo/wiki/Tech-requirement "Управление".
 */
 
+bool game_action(enum Key key, struct GameField* gamefield)
+{
+    switch (key) {
+    case UP_k:
+        gamefield_swap(gamefield, UP);
+        return true;
+    case DOWN_k:
+        gamefield_swap(gamefield, DOWN);
+        return true;
+    case LEFT_k:
+        gamefield_swap(gamefield, LEFT);
+        return true;
+    case RIGHT_k:
+        gamefield_swap(gamefield, RIGHT);
+        return true;
+    case QUIT_k:
+        return false;
+    case ERR_k:
+        return true;
+    }
+    return false;
+}
+
 int main()
 {
-    initscr();
-    cbreak();
-
+    controls_setup();
     srand(time(NULL));
 
     struct GameField* gamefield = gamefield_init();
-    gamefield_print(gamefield);
-
     gamefield_shuffle(gamefield);
     gamefield_print(gamefield);
 
-    gamefield_free(gamefield);
+    enum Key key = controls_user_input();
 
-    getch();
-    endwin();
+    while (game_action(key, gamefield)) {
+        erase();
+        gamefield_print(gamefield);
+        key = controls_user_input();
+    }
+
+    gamefield_free(gamefield);
+    controls_end();
 }
