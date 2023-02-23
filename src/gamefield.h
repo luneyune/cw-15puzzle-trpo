@@ -22,5 +22,6 @@ void gamefield_print(struct GameField* gamefield);
 
 // Tiles manipulation functions
 bool gamefield_swap(struct GameField* gamefield, struct Point direction);
+void gamefield_shuffle(struct GameField* gamefield);
 
 #endif

@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include <gamefield.h>
 
@@ -15,19 +17,12 @@ https://github.com/luneyune/cw-15puzzle-trpo/wiki/Tech-requirement "Управл
 
 int main()
 {
+    srand(time(NULL));
+
     struct GameField* gamefield = gamefield_init();
     gamefield_print(gamefield);
 
-    gamefield_swap(gamefield, DOWN);
-    gamefield_print(gamefield);
-
-    gamefield_swap(gamefield, RIGHT);
-    gamefield_print(gamefield);
-
-    gamefield_swap(gamefield, LEFT);
-    gamefield_print(gamefield);
-
-    gamefield_swap(gamefield, UP);
+    gamefield_shuffle(gamefield);
     gamefield_print(gamefield);
 
     gamefield_free(gamefield);

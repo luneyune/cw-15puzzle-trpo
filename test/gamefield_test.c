@@ -38,3 +38,13 @@ CTEST(gamefield_suite, swapping_tiles)
 
     gamefield_free(gamefield);
 }
+
+CTEST(gamefield_suite, shuffling_tiles)
+{
+    struct GameField* gamefield = gamefield_init();
+    struct Point blank = gamefield->blank_tile;
+
+    ASSERT_EQUAL(0, gamefield->field[blank.y][blank.y]);
+
+    gamefield_free(gamefield);
+}
