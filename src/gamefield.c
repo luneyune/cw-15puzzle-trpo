@@ -34,7 +34,11 @@ void gamefield_print(struct GameField* gamefield)
         printw("-------------\n");
         for (int j = 0; j < 4; j++) {
             addch('|');
-            printw("%d", gamefield->field[i][j]);
+            if (gamefield->field[i][j] == 0) {
+                addch(' ');
+            } else {
+                printw("%d", gamefield->field[i][j]);
+            }
             if (gamefield->field[i][j] < 10) {
                 addch(' ');
             }

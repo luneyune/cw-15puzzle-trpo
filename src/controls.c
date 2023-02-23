@@ -6,6 +6,7 @@ void controls_setup()
 {
     initscr();
     cbreak();
+    noecho();
 }
 
 void controls_end()
