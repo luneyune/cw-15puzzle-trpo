@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <curses.h>
+
 struct GameField* gamefield_init()
 {
     struct GameField* gamefield = malloc(sizeof(struct GameField));
@@ -29,18 +31,19 @@ void gamefield_free(struct GameField* gamefield)
 void gamefield_print(struct GameField* gamefield)
 {
     for (int i = 0; i < 4; i++) {
-        printf("-------------\n");
+        printw("-------------\n");
         for (int j = 0; j < 4; j++) {
-            putchar('|');
-            printf("%d", gamefield->field[i][j]);
+            addch('|');
+            printw("%d", gamefield->field[i][j]);
             if (gamefield->field[i][j] < 10) {
-                putchar(' ');
+                addch(' ');
             }
         }
-        putchar('|');
-        putchar('\n');
+        addch('|');
+        addch('\n');
     }
-    printf("-------------\n");
+    printw("-------------\n");
+    refresh();
 }
 
 bool gamefield_swap(struct GameField* gamefield, struct Point direction)

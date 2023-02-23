@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Werror -I src
+CFLAGS = -Wall -Werror -lcurses -I src
 CC = gcc
 
 Executable_dir = bin

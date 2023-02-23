@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <curses.h>
+#include <unistd.h>
 
 #include <gamefield.h>
 
@@ -17,6 +19,9 @@ https://github.com/luneyune/cw-15puzzle-trpo/wiki/Tech-requirement "Управл
 
 int main()
 {
+    initscr();
+    cbreak();
+
     srand(time(NULL));
 
     struct GameField* gamefield = gamefield_init();
@@ -26,4 +31,7 @@ int main()
     gamefield_print(gamefield);
 
     gamefield_free(gamefield);
+
+    getch();
+    endwin();
 }
