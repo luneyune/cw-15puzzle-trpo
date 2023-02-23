@@ -1,2 +1,3 @@
 bin/*
-obj/*
+obj/app/*.o
+obj/test/*.o
