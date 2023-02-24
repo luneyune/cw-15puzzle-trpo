@@ -42,9 +42,24 @@ CTEST(gamefield_suite, swapping_tiles)
 CTEST(gamefield_suite, shuffling_tiles)
 {
     struct GameField* gamefield = gamefield_init();
+    gamefield_shuffle(gamefield);
+
     struct Point blank = gamefield->blank_tile;
 
+    ASSERT_EQUAL(0, gamefield->field[blank.y][blank.x]);
+
+    gamefield_free(gamefield);
+}
+
+CTEST(gamefield_suite, is_win)
+{
+    struct GameField* gamefield = gamefield_init();
+    struct Point blank = gamefield->blank_tile;
     ASSERT_EQUAL(0, gamefield->field[blank.y][blank.y]);
+    ASSERT_EQUAL(1, gamefield_is_win(gamefield));
+
+    gamefield_swap(gamefield, (struct Point){0, -1});
+    ASSERT_EQUAL(0, gamefield_is_win(gamefield));
 
     gamefield_free(gamefield);
 }

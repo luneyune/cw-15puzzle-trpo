@@ -24,4 +24,7 @@ void gamefield_print(struct GameField* gamefield);
 bool gamefield_swap(struct GameField* gamefield, struct Point direction);
 void gamefield_shuffle(struct GameField* gamefield);
 
+// Win check function
+bool gamefield_is_win(struct GameField* gamefield);
+
 #endif
