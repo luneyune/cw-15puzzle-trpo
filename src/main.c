@@ -50,6 +50,15 @@ bool game_action(enum Key key, struct GameField* gamefield)
     return false;
 }
 
+void win_message()
+{
+    erase();
+    printw("Congratulation! you solved a puzzle in %d actions!\n",
+           actions_number);
+    printw("PRESS Q for quit or any other key for continue!\n");
+    refresh();
+}
+
 int main()
 {
     controls_setup();
@@ -66,6 +75,16 @@ int main()
     enum Key key = controls_user_input();
 
     while (game_action(key, gamefield)) {
+        if (gamefield_is_win(gamefield)) {
+            win_message();
+            key = controls_user_input();
+            if (key == QUIT_k) {
+                break;
+            }
+            actions_number = 0;
+            gamefield_shuffle(gamefield);
+        }
+
         erase();
         gamefield_print(gamefield);
         printw("Actions: %d\n", actions_number);

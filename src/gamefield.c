@@ -86,3 +86,17 @@ void gamefield_shuffle(struct GameField* gamefield)
         gamefield_swap(gamefield, directions[direction_idx]);
     }
 }
+
+bool gamefield_is_win(struct GameField* gamefield)
+{
+    int correct = 1;
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (gamefield->field[i][j] != correct) {
+                return false;
+            }
+            correct = (correct + 1) % 16;
+        }
+    }
+    return true;
+}
